@@ -39,6 +39,59 @@ module "s3" {
   prefix = local.prefix
 }
 
+# ── S3 Bucket Policy ─────────────────────────────────────────────────────────
+# Defined here (not in the S3 module) to avoid a circular dependency:
+# module.iam needs module.s3.bucket_arn; module.s3 would need module.iam.processor_role_arn.
+resource "aws_s3_bucket_policy" "results" {
+  bucket = module.s3.bucket_id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid    = "AllowLambdaProcessorOnly"
+        Effect = "Allow"
+        Principal = {
+          AWS = module.iam.processor_role_arn
+        }
+        Action = [
+          "s3:PutObject",
+          "s3:GetObject"
+        ]
+        Resource = "${module.s3.bucket_arn}/results/*"
+      },
+      {
+        Sid       = "DenyAllOthers"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource = [
+          module.s3.bucket_arn,
+          "${module.s3.bucket_arn}/*"
+        ]
+        Condition = {
+          StringNotEquals = {
+            "aws:PrincipalArn" = module.iam.processor_role_arn
+          }
+        }
+      },
+      {
+        Sid       = "DenyNonSSL"
+        Effect    = "Deny"
+        Principal = "*"
+        Action    = "s3:*"
+        Resource = [
+          module.s3.bucket_arn,
+          "${module.s3.bucket_arn}/*"
+        ]
+        Condition = {
+          Bool = { "aws:SecureTransport" = "false" }
+        }
+      }
+    ]
+  })
+}
+
 # ── IAM ───────────────────────────────────────────────────────────────────────
 module "iam" {
   source = "./modules/iam"

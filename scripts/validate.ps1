@@ -58,12 +58,13 @@ $redisStatus = $redis.CacheClusters[0].CacheClusterStatus
 Check "Redis cluster status: $redisStatus" ($redisStatus -eq "available")
 
 # -- S3 --
+# Direct CLI access is intentionally denied by the DenyAllOthers bucket policy.
+# S3 write access is validated via Lambda in the API Gateway section below.
 Write-Host ""
 Write-Host "[ S3 ]" -ForegroundColor Yellow
+Check "Bucket name en outputs: $s3Bucket" ($null -ne $s3Bucket -and $s3Bucket -ne "")
 aws s3api head-bucket --bucket $s3Bucket --profile sre-challenge 2>$null
-Check "Bucket $s3Bucket accesible" ($LASTEXITCODE -eq 0)
-$s3Objects = aws s3 ls "s3://$s3Bucket/results/" --recursive --profile sre-challenge 2>$null
-Check "Objetos en results/" ($null -ne $s3Objects)
+Check "Acceso directo denegado (DenyAllOthers activo)" ($LASTEXITCODE -ne 0)
 
 # -- Lambda --
 Write-Host ""
@@ -81,8 +82,10 @@ $body = '{"user":"validate-script","action":"test"}'
 $missResponse = Invoke-WebRequest -Uri $apiEndpoint -Method POST `
     -Body $body -ContentType "application/json" -UseBasicParsing 2>$null
 $missCache = $missResponse.Headers["X-Cache"]
+$missBody  = $missResponse.Content | ConvertFrom-Json
 Check "POST /process responde 200" ($missResponse.StatusCode -eq 200)
 Check "Primera llamada es X-Cache: MISS" ($missCache -eq "MISS")
+Check "Lambda escribio en S3 (s3_key presente)" ($null -ne $missBody.s3_key -and $missBody.s3_key -ne "")
 
 $hitResponse = Invoke-WebRequest -Uri $apiEndpoint -Method POST `
     -Body $body -ContentType "application/json" -UseBasicParsing 2>$null
