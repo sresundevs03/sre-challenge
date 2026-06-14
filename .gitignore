@@ -21,6 +21,7 @@ terraform.tfvars
 # Plan files (pueden contener secretos)
 *.tfplan
 *.plan
+tfplan
 
 # ============================================================
 # AWS — credenciales nunca al repo
