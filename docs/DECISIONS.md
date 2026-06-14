@@ -61,15 +61,7 @@ sort_keys=True garantiza que `{"b":1,"a":2}` y `{"a":2,"b":1}` generen el mismo 
 
 ---
 
-## 8. Cuenta root de AWS
-
-**Decision:** root account para el challenge (documentado, no recomendado)
-
-Para velocidad de entrega del challenge se uso la cuenta root con Access Keys. En produccion esto es inaceptable — se usaria un IAM User o IAM Role con permisos minimos (least privilege). El README documenta este tradeoff explicitamente.
-
----
-
-## 9. TTL de Redis: 60 segundos
+## 8. TTL de Redis: 60 segundos
 
 **Decision:** 60s TTL para cache entries
 
@@ -77,7 +69,7 @@ El challenge especifica demostrar HIT/MISS en llamadas consecutivas. 60s es sufi
 
 ---
 
-## 10. Retencion de logs: 7 dias
+## 9. Retencion de logs: 7 dias
 
 **Decision:** CloudWatch Log Groups con retention_in_days = 7
 

@@ -3,7 +3,7 @@
 Implementación de una arquitectura serverless en AWS usando Terraform, con caché Redis, almacenamiento S3 y API REST.
 
 **Owner:** sresundevs03@gmail.com  
-**Cuenta AWS:** 779035456288 | **Región:** us-east-1 | **Entorno:** qa
+**Región:** us-east-1 | **Entorno:** qa
 
 ---
 
