@@ -1,0 +1,70 @@
+# ============================================================
+# TERRAFORM — nunca subir al repo
+# ============================================================
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+.terraform.lock.hcl
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Variables con secretos — NUNCA al repo
+terraform.tfvars
+*.tfvars
+!terraform.tfvars.example
+
+# Plan files (pueden contener secretos)
+*.tfplan
+*.plan
+
+# ============================================================
+# AWS — credenciales nunca al repo
+# ============================================================
+.aws/
+*.pem
+*.key
+aws-credentials*
+credentials*
+
+# ============================================================
+# PYTHON / LAMBDA
+# ============================================================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+*.zip
+lambda/package/
+
+# ============================================================
+# VS CODE
+# ============================================================
+.vscode/settings.json
+.vscode/launch.json
+!.vscode/extensions.json
+
+# ============================================================
+# SISTEMA OPERATIVO
+# ============================================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================================
+# EVIDENCIAS TEMPORALES — no subir capturas grandes
+# ============================================================
+evidence/*.mp4
+evidence/*.mov

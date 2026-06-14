@@ -1,0 +1,11 @@
+# Copia este archivo como terraform.tfvars y completa los valores
+# NUNCA subas terraform.tfvars al repositorio
+
+aws_region   = "us-east-1"
+project_name = "sre-challenge"
+environment  = "qa"
+owner_email  = "tu-email@ejemplo.com"
+
+# Fecha límite de destrucción (10 días desde el despliegue)
+# Formato: YYYY-MM-DD
+expiry_date = "2025-XX-XX"

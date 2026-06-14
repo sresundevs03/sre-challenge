@@ -1,0 +1,15 @@
+=== REQUEST ===
+POST https://or9vc0o50j.execute-api.us-east-1.amazonaws.com/process
+Body: {"user":"sre-test","action":"validate","data":"hello"}
+
+=== RESPONSE ===
+HTTP/1.1 200 OK
+Date: Sun, 14 Jun 2026 01:34:12 GMT
+Content-Type: application/json
+Content-Length: 334
+Connection: keep-alive
+X-Cache: MISS
+X-Request-Id: 8c458be6-55e7-45a2-9332-0fd48617406a
+Apigw-Requestid: e7W7PiM6oAMEKnQ=
+
+{"id": "8c458be6-55e7-45a2-9332-0fd48617406a", "timestamp": "2026-06-14T01:34:12.472526Z", "cache_key": "745709780ce1b54661da22e1b879b1a2ffc6afee603db5fe0938791cd0cd48ef", "input": {"user": "sre-test", "action": "validate", "data": "hello"}, "processed": true, "s3_key": "results/2026-06-14/8c458be6-55e7-45a2-9332-0fd48617406a.json"}

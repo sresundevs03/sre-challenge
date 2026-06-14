@@ -1,0 +1,7 @@
+=== TERRAFORM OUTPUTS ===
+api_endpoint = "https://or9vc0o50j.execute-api.us-east-1.amazonaws.com/process"
+lambda_processor_name = "sre-challenge-qa-processor"
+redis_endpoint = "sre-qa-redis.1w0eaf.0001.use1.cache.amazonaws.com"
+s3_bucket_name = "sre-challenge-qa-results"
+sns_topic_arn = "arn:aws:sns:us-east-1:779035456288:sre-challenge-qa-expiry-alerts"
+vpc_id = "vpc-013cc9e0f6cad00fe"
